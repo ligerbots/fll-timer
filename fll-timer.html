@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FLL Timer</title>
+    <link rel="stylesheet" href="css/fll-timer.css">
+  </head>
+  <body>
+
+    <div class="ready js-ready-message" style="display: none;">Ready</div>
+
+    <div class="timer js-timer-wrapper">
+      <div class="number auto-width js-minutes-10" data-value="0">
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+      </div>
+      <div class="number js-minutes-1" data-value="2">
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+      </div>
+      <div class="separator"></div>
+      <div class="number js-seconds-10" data-value="3">
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+      </div>
+      <div class="number js-seconds-1" data-value="0">
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+	<div class="segment"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input type="text" class="js-customize-input" placeholder="2:30" style="display: none;">
+      <button class="js-customize-button">Customize</button>
+      <button class="js-reset-button">Reset</button>
+      <button class="js-start-button">Start</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.min.js"></script>
+    <script src="js/fll-timer-new.js"></script>
+  </body>
+</html>
