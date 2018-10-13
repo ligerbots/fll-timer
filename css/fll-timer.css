@@ -1,98 +1,81 @@
-/** FLL Timer @author Clark Winkelmann */
-* { box-sizing: border-box; -moz-box-sizing: border-box; }
+@font-face {
+  font-family: 'digital-7-mono';
+  src: URL('digital_7_mono.ttf') format('truetype');
+}
 
-body { margin: 0; padding: 0; font-family: "Liberation Sans", Arial, sans-serif; font-size: 900px; }
+#header {
+    width: 100%;
+    height: 100px;
+}
 
-.ready { position: absolute; top: 0; left: 0; width: 100%; color: blue; font-weight: bold; font-size: 0.1em; text-align: center; text-transform: uppercase; }
+#header div {
+    margin-left: 0;
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+#header img {
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
-.timer { position: absolute; top: 50%; width: 100%; height: 14em; margin-top: -7em; padding-top: 1em; background: blue; font-size: 0.055em; text-align: center; }
+#timer {
+    font-family: 'digital-7-mono';
+    width: 100%;
+    text-align: center;
+    font-size: 80pt;
+    display: inline-block;
+}
 
-.timer .separator, .timer .number { display: inline-block; vertical-align: middle; position: relative; }
+#timer.danger {
+    color: #f00;
+}
 
-.timer .separator { width: 1.2em; height: 5em; }
+.vspace {
+    width: 100%;
+    height: 20px;
+}
+.large-vspace {
+    width: 100%;
+    height: 100px;
+}
 
-.timer .separator::before, .timer .separator::after { content: ''; display: block; position: absolute; left: 0; width: 1.2em; height: 1.2em; background-color: #111; transition: background-color 0.3s; }
+#footer {
+    width: 100%;
+    height: 150px;
+}
+#footer img {
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
-.timer .separator::before { top: 0; }
+.controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 
-.timer .separator::after { bottom: 0; }
+.controls input, .controls button {
+    display: inline-block;
+    margin: 10pt 10pt;
+    padding: 10pt 10pt;
+    font-size: 14pt;
+    text-align: center;
+}
 
-.timer .number { width: 6.6em; height: 12em; margin: 0 0.4em; }
+.controls input {
+    width: 5em;
+    color: #666;
+}
 
-.timer .number .segment { display: block; position: absolute; width: 1.2em; height: 3.8em; background-color: #111; transform-origin: top right; opacity: 1; transition: opacity 0.3s, background-color 0.3s; }
-
-.timer .number .segment:nth-child(1) { left: 0; top: 1.4em; }
-
-.timer .number .segment:nth-child(2) { left: 0; bottom: 1.4em; }
-
-.timer .number .segment:nth-child(3) { right: 0; top: 1.4em; }
-
-.timer .number .segment:nth-child(4) { right: 0; bottom: 1.4em; }
-
-.timer .number .segment:nth-child(5) { left: 0.2em; top: 0; transform: rotate(-90deg); }
-
-.timer .number .segment:nth-child(6) { left: 0.2em; top: 5.4em; transform: rotate(-90deg); }
-
-.timer .number .segment:nth-child(7) { left: 0.2em; bottom: -2.6em; transform: rotate(-90deg); }
-
-.timer .number .segment::before, .timer .number .segment::after { content: ''; display: block; position: absolute; left: 0; width: 0.84853em; height: 0.84853em; background-color: #111; transform-origin: top left; transform: rotate(-45deg); transition: background-color 0.3s; }
-
-.timer .number .segment::before { top: 0; }
-
-.timer .number .segment::after { bottom: -0.84853em; }
-
-.timer .number[data-value="0"] .segment:nth-child(6) { opacity: 0; }
-
-.timer .number[data-value="0"].auto-width { display: none; }
-
-.timer .number[data-value="1"] .segment { opacity: 0; }
-
-.timer .number[data-value="1"] .segment:nth-child(3) { opacity: 1; }
-
-.timer .number[data-value="1"] .segment:nth-child(4) { opacity: 1; }
-
-.timer .number[data-value="1"].auto-width { width: 1.2em; }
-
-.timer .number[data-value="2"] .segment:nth-child(1) { opacity: 0; }
-
-.timer .number[data-value="2"] .segment:nth-child(4) { opacity: 0; }
-
-.timer .number[data-value="3"] .segment:nth-child(1) { opacity: 0; }
-
-.timer .number[data-value="3"] .segment:nth-child(2) { opacity: 0; }
-
-.timer .number[data-value="4"] .segment:nth-child(2) { opacity: 0; }
-
-.timer .number[data-value="4"] .segment:nth-child(5) { opacity: 0; }
-
-.timer .number[data-value="4"] .segment:nth-child(7) { opacity: 0; }
-
-.timer .number[data-value="5"] .segment:nth-child(2) { opacity: 0; }
-
-.timer .number[data-value="5"] .segment:nth-child(3) { opacity: 0; }
-
-.timer .number[data-value="6"] .segment:nth-child(3) { opacity: 0; }
-
-.timer .number[data-value="7"] .segment { opacity: 0; }
-
-.timer .number[data-value="7"] .segment:nth-child(3) { opacity: 1; }
-
-.timer .number[data-value="7"] .segment:nth-child(4) { opacity: 1; }
-
-.timer .number[data-value="7"] .segment:nth-child(5) { opacity: 1; }
-
-.timer .number[data-value="9"] .segment:nth-child(2) { opacity: 0; }
-
-.timer.danger .separator::before, .timer.danger .separator::after { background-color: #f00; }
-
-.timer.danger .number .segment { background-color: #f00; }
-
-.timer.danger .number .segment::before, .timer.danger .number .segment::after { background-color: #f00; }
-
-.controls { position: absolute; bottom: 0; left: 0; width: 100%; padding: 0.7em 2%; font-size: 0.03em; text-align: right; }
-
-.controls input, .controls button { display: inline-block; margin: 0 0.5em; padding: 0.5em; font-size: 1em; text-align: center; }
-
-.controls input { width: 5em; color: #666; }
-
-.controls button { min-width: 8em; background-color: blue; border: none; color: #fff; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+.controls button {
+    min-width: 8em;
+    background-color: blue;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+}

@@ -6,7 +6,7 @@
  */
 
 $(document).ready(function() {
-
+    
     var startSound = new Howl({
 	src: ['sounds/charge.mp3'],
         preload: true,
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
     // Settings values
     var settings = {
-	timer_seconds: 150
+	timer_seconds: 150,
     };
 
     // Holds the current timer values
@@ -70,15 +70,12 @@ $(document).ready(function() {
     function updateGui() {
         var minutes = Math.floor(timer / 60);
         var seconds = timer % 60;
-	$('.js-minutes-10').attr('data-value', Math.floor(minutes / 10));
-	$('.js-minutes-1').attr('data-value', minutes % 10);
-	$('.js-seconds-10').attr('data-value', Math.floor(seconds / 10));
-	$('.js-seconds-1').attr('data-value', seconds % 10);
-
+	document.getElementById("timer").innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        
 	if (timer <= danger_seconds) {
-	    $('.js-timer-wrapper').addClass('danger');
+	    document.getElementById("timer").className = 'danger';
 	} else {
-	    $('.js-timer-wrapper').removeClass('danger');
+	    document.getElementById("timer").className = '';
 	}
     }
 
@@ -86,7 +83,10 @@ $(document).ready(function() {
      * Sets up the gui size according to the window
      */
     function setupGui() {
-	$('body').css('font-size', $(window).height()+'px');
+        var h = $(window).height();
+        h -= 200;
+        h = Math.min(h, 550);
+	document.getElementById("timer").style.fontSize = h + 'px';
     }
 
     /**
@@ -95,13 +95,13 @@ $(document).ready(function() {
     function start() {
 	if (timerInterval == null) {
             // reset the timer, just in case
-	    $.extend(timer, settings);
+	    timer = settings.timer_seconds;
 
             gameBeginsSound.play();
 	    //startSound.play();
 	}
 
-	$('.js-start-button').html('Pause');
+	$('#start-button').html('Pause');
     }
 
     /**
@@ -113,7 +113,7 @@ $(document).ready(function() {
 	    timerInterval = null;
 	}
 
-	$('.js-start-button').html('Start');
+	$('#start-button').html('Start');
     }
 
     /**
@@ -136,7 +136,7 @@ $(document).ready(function() {
     /**
      * Handles the play/pause button click
      */
-    $('.js-start-button').click(function() {
+    $('#start-button').click(function() {
 	if (timerInterval == null) {
 	    start();
 	} else {
@@ -147,15 +147,15 @@ $(document).ready(function() {
     /**
      * Handles the reset button click
      */
-    $('.js-reset-button').click(function() {
+    $('#reset-button').click(function() {
 	reset();
     });
 
     /**
      * Handles the customize button click
      */
-    $('.js-customize-button').click(function() {
-	$input = $('.js-customize-input');
+    $('#customize-button').click(function() {
+	$input = $('#customize-input');
 	if ($input.css('display') == 'none') {
             var minutes = Math.floor(settings.timer_seconds / 60);
             var seconds = settings.timer_seconds % 60;
@@ -186,40 +186,39 @@ $(document).ready(function() {
 	R: 82
     }
 
-    /**
-     * Handles a key release event
-     */
-    $(document).keyup(function(e) {
-	switch(e.which) {
-	case KEY.SPACE:
-	    // Prevents clicking the focused button
-	    e.preventDefault();
-	case KEY.ESC:
-	    $('.js-ready-message').hide();
-	    $('.js-start-button').trigger('click');
-	    break;
-	case KEY.R:
-	    $('.js-reset-button').trigger('click');
-	    break;
-	}
-    });
+    // /**
+    //  * Handles a key release event
+    //  */
+    // $(document).keyup(function(e) {
+    //     switch(e.which) {
+    //     case KEY.SPACE:
+    //         // Prevents clicking the focused button
+    //         e.preventDefault();
+    //     case KEY.ESC:
+    //         $('#start-button').trigger('click');
+    //         break;
+    //     case KEY.R:
+    //         $('#reset-button').trigger('click');
+    //         break;
+    //     }
+    // });
 
-    /**
-     * Handles a key down event
-     */
-    $(document).keydown(function(e) {
-	switch(e.which) {
-	case KEY.SPACE:
-	    // Prevents clicking the focused button
-	    e.preventDefault();
-	case KEY.ESC:
-	    // Only if the timer isn't running
-	    if (timerInterval == null) {
-		$('.js-ready-message').show();
-	    }
-	    break;
-	}
-    });
+    // /**
+    //  * Handles a key down event
+    //  */
+    // $(document).keydown(function(e) {
+    //     switch(e.which) {
+    //     case KEY.SPACE:
+    //         // Prevents clicking the focused button
+    //         e.preventDefault();
+    //     case KEY.ESC:
+    //         // Only if the timer isn't running
+    //         if (timerInterval == null) {
+    //     	$('.js-ready-message').show();
+    //         }
+    //         break;
+    //     }
+    // });
 
     /**
      * Handles page resize
@@ -231,5 +230,4 @@ $(document).ready(function() {
     // Init
     setupGui();
     reset();
-
 });
