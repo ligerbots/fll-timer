@@ -6,6 +6,14 @@
  */
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    // set the sponsor image from a url argument
+    var url = new URL(document.location.href);
+    var sponsor_image_url = url.searchParams.get("sponsor-image");
+    if ( sponsor_image_url != null )
+    {
+	document.getElementById("sponsor-image").src = sponsor_image_url;
+    }
     
     var startSound = new Howl({
 	src: ['sounds/charge.mp3'],
